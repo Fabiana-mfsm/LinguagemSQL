@@ -385,3 +385,54 @@ SELECT <br>
 &nbsp; Nome <br>
 FROM <br>
 &nbsp; Funcionarios; <br>
+
+# 9. Funções de Linha Única no SQL
+
+## 9.1 O que são Funções SQL?
+- **Definição:** Conjuntos de instruções que recebem um ou mais valores de entrada e retornam
+um valor de saída.
+- **Utilidade:**
+  - **Limpeza:** Remover espaços extras ou caracteres indesejados.
+  - **Transformação:** Alterar formatos de data ou converter textos.
+  - **Análise:** Realizar cálculos rápidos por linha
+- **Processo:** ``Entrada (Valor)`` ``->`` ``FUNÇÃO`` ``->`` ``Saída (Novo Valor)``
+
+## 9.2 Funções de Texto (String Functions)
+- **Manipulação:**
+  - **CONCAT:** Une duas ou mais strings (ex: Nome + Sobrenome).
+  - **UPPER / LOWER:** Converte o texto para MAIÚSCULO ou minúsculo.
+  - **TRIM:** Remove espaços em branco no início e no fim.
+  -  **REPLACE:** Substitui um caractere ou trecho de texto por outro.
+
+
+
+
+
+
+# 9. Funções de Agregação
+
+## 9.1 O que são Funções de Agregação?
+- As funções de agregação processam um conjunto de valores para retornar um único valor resumido. Elas são essenciais para transformar dados brutos em informações estratégicas.
+
+| Função | Finalidade                                      | Tipos de Dados Compatíveis     |
+|--------|------------------------------------------------|--------------------------------|
+| COUNT  | Conta o número de registros (linhas).           | Qualquer tipo                  |
+| SUM    | Soma os valores de uma coluna.                  | Apenas Numéricos               |
+| AVG    | Calcula a média aritmética dos valores.         | Apenas Numéricos               |
+| MAX    | Identifica o valor máximo (maior).              | Numéricos, Datas e Texto       |
+| MIN    | Identifica o valor mínimo (menor).              | Numéricos, Datas e Texto       |
+
+## 9.2 Cláusula GROUP BY (Agrupamento)
+- A cláusula **GROUP BY** é utilizada para organizar linhas que possuem valores idênticos em
+grupos. Ela é quase sempre utilizada em conjunto com as funções de agregação mencionadas
+acima.
+- **Condensação de Registros:** A principal função do **GROUP BY** é reduzir (achatar) múltiplos
+registros em uma única linha de resumo por grupo.
+- **Cálculos em Nível de Grupo:** Ao contrário de uma conta simples no banco de dados inteiro, o
+agrupamento permite realizar **Cálculos de Nível de Grupo** (ex: calcular o faturamento total por
+categoria de produto em vez do faturamento total da loja).
+
+## 9.3 Exemplo Prático
+- Se você tem uma tabela de vendas e usa GROUP BY região, o SQL pegará todas as vendas de
+"Sul", "Norte" e "Leste" e entregará apenas uma linha para cada região com os totais
+somados.
