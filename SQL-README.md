@@ -361,30 +361,30 @@
     * Full Join: Trazemos tudo de ambos os lados, independentemente de haver correspondência.
 
 ## 8.2 Como Usamos Joins
-* Ao escrevermos um JOIN, devemos especificar a relação:
-SELECT
-TabelaA.Nome,
-TabelaB.Pais
-FROM
-TabelaA INNER JOIN TabelaB ON TabelaA.id = TabelaB.id;
+* Ao escrevermos um ``JOIN``, devemos especificar a relação:
+``SELECT``
+``TabelaA.Nome,``
+``TabelaB.Pais``
+``FROM``
+``TabelaA INNER JOIN TabelaB ON TabelaA.id = TabelaB.id;``
 
 ## 8.3 Operadores SET (Adição de Linhas - Vertical)
 * Empilhamos resultados de consultas diferentes, desde que tenham a mesma estrutura de colunas.
-    * UNION: Combina os resultados e remove duplicados.
-    * UNION ALL: Combina tudo, incluindo duplicados (é mais rápido).
-    * EXCEPT / MINUS: Mostra o que existe no primeiro conjunto mas não no segundo.
-    * INTERSECT: Mostra apenas o que é comum a ambos os conjuntos.
+    * ``UNION:`` Combina os resultados e remove duplicados.
+    * ``UNION ALL:`` Combina tudo, incluindo duplicados (é mais rápido).
+    * ``EXCEPT / MINUS:`` Mostra o que existe no primeiro conjunto mas não no segundo.
+    * ``INTERSECT:`` Mostra apenas o que é comum a ambos os conjuntos.
  
 ## 8.4 Como Usamos Operadores SET
-SELECT <br>
-&nbsp; Nome <br>
-FROM <br>
-&nbsp; Clientes <br>
-UNION <br>
-SELECT <br>
-&nbsp; Nome <br>
-FROM <br>
-&nbsp; Funcionarios; <br>
+``SELECT`` <br>
+&nbsp; ``Nome`` <br>
+``FROM`` <br>
+&nbsp; ``Clientes`` <br>
+``UNION`` <br>
+``SELECT`` <br>
+&nbsp; ``Nome`` <br>
+``FROM`` <br>
+&nbsp; ``Funcionarios;`` <br>
 
 # 9. Funções de Linha Única no SQL
 
@@ -399,19 +399,61 @@ um valor de saída.
 
 ## 9.2 Funções de Texto (String Functions)
 - **Manipulação:**
-  - **CONCAT:** Une duas ou mais strings (ex: Nome + Sobrenome).
-  - **UPPER / LOWER:** Converte o texto para MAIÚSCULO ou minúsculo.
-  - **TRIM:** Remove espaços em branco no início e no fim.
-  -  **REPLACE:** Substitui um caractere ou trecho de texto por outro.
+  - **``CONCAT:``** Une duas ou mais strings (ex: Nome + Sobrenome).
+  - **``UPPER / LOWER:``** Converte o texto para MAIÚSCULO ou minúsculo.
+  - **``TRIM:``** Remove espaços em branco no início e no fim.
+  -  **``REPLACE:``** Substitui um caractere ou trecho de texto por outro.
+- **Extração e Medida:**
+  - **``LEN:``** Retorna a quantidade de caracteres.
+  - **``LEFT / RIGTH:``** Extrai caracteres a partir da esquerda ou direita.
+  - **``SUBSTRING:``** Extrai uma parte específica do texto de qualquer posição.
+
+## 9.3 Funções de Data e Hora (Date & Time)
+- **Cálculos:**
+  - **``DATEADD:``** Adiciona um intervalo (dias, meses, anos) a uma data.
+  - **``DATEDIFF:``** Calcula a diferença entre duas datas.
+- **Extração de Partes:**
+  - **``YEAR, MONTH, DAY:``** Extraem o ano, mês ou dia numérico.
+  - **``DATENAME:``** Retorna o nome da parte da data (ex: "Janeiro", "Segunda-feira").
+- **Conversão:**
+  - **``CAST / CONVERT:``** Alteram o tipo de dado (ex: de Texto para Data).
+  - **``FORMAT:``** Define como a data será exibida (ex: 'dd/MM/yyyy').
+
+## 9.4 Tratamento de Valores Nulos (NULL Functions)
+- **Por que tratar nulos?** Evitar erros em cálculos e garantir relatórios precisos.
+- **Principais funções:**
+  - **``ISNULL``(valor, substituto):** Se o valor for nulo, substitui por outro.
+  - **``OALESCE(v1, v2, ...)``:** Retorna o primeiro valor não nulo de uma lista.
+  - **``NULLIF(v1, v2)``:** Retorna nulo se os dois valores forem iguais.
+  - **``IS NULL``:** Operador para filtrar registros sem dados.
+
+## 9.5 Lógica Condicional (CASE Statement)
+- **O que é:** Funciona como um ``"SE... ENTÃO" (IF... THEN)`` dentro do SQL.
+- **Aplicações:**
+  - **Categorização:** Se Venda > 1000 então 'Premium'.
+  - **Padronização:** Converter 'Alemanha' para 'DE', 'Brasil' para 'BR'.
+- **Sintaxe Básica:**
+**``CASE``**
+&nbsp; **``WHEM Condição THEN Resultado``**
+&nbsp; **``ELSE Resultado_Padrão``**
+**``END``**
+
+## 9.6 Funções Aninhadas (Nested Functions)
+- **Conceito:** Usar uma função como entrada para outra função.
+- **Exemplo Prático:**
+  - **``LEN(LOWER(LEFT('Maria', 2)))``**
+  - **``LEN(LOWER(LEFT('Maria', 2)))``**
+  - **``LOWER('Ma') -> 'ma'``**
+  - **``LEN('ma') -> Resultado Final: 2``**
+
+ ## 9.7 Conclusão
+- Funções de linha única retornam **um resultado para cada linha.**
+- Podem ser usadas no **``SELECT``** (para exibir), no **``WHERE``** (para filtrar) e no **``ORDER BY**`` (para ordenar).
 
 
+# 10. Funções de Agregação
 
-
-
-
-# 9. Funções de Agregação
-
-## 9.1 O que são Funções de Agregação?
+## 10.1 O que são Funções de Agregação?
 - As funções de agregação processam um conjunto de valores para retornar um único valor resumido. Elas são essenciais para transformar dados brutos em informações estratégicas.
 
 | Função | Finalidade                                      | Tipos de Dados Compatíveis     |
@@ -422,7 +464,7 @@ um valor de saída.
 | MAX    | Identifica o valor máximo (maior).              | Numéricos, Datas e Texto       |
 | MIN    | Identifica o valor mínimo (menor).              | Numéricos, Datas e Texto       |
 
-## 9.2 Cláusula GROUP BY (Agrupamento)
+## 10.2 Cláusula GROUP BY (Agrupamento)
 - A cláusula **GROUP BY** é utilizada para organizar linhas que possuem valores idênticos em
 grupos. Ela é quase sempre utilizada em conjunto com as funções de agregação mencionadas
 acima.
@@ -432,7 +474,7 @@ registros em uma única linha de resumo por grupo.
 agrupamento permite realizar **Cálculos de Nível de Grupo** (ex: calcular o faturamento total por
 categoria de produto em vez do faturamento total da loja).
 
-## 9.3 Exemplo Prático
+## 10.3 Exemplo Prático
 - Se você tem uma tabela de vendas e usa GROUP BY região, o SQL pegará todas as vendas de
 "Sul", "Norte" e "Leste" e entregará apenas uma linha para cada região com os totais
 somados.
